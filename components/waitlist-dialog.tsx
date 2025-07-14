@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { toast } from "@/components/ui/use-toast"
 import { Button } from "./ui/button"
 import {
   Dialog,
@@ -15,7 +14,51 @@ import { Input } from "./ui/input"
 import { Label } from "./ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
 
+type ToastProps = {
+  title: string;
+  description: string;
+  variant?: 'default' | 'destructive';
+};
+
+const Toast = ({ title, description, variant = 'default' }: ToastProps) => {
+  const [isOpen, setIsOpen] = useState(true);
+
+  if (!isOpen) return null;
+
+  return (
+    <div className={`fixed top-4 right-4 z-50 p-4 rounded-md shadow-lg ${
+      variant === 'destructive' ? 'bg-red-500 text-white' : 'bg-white text-gray-900'
+    }`}>
+      <div className="flex items-start justify-between">
+        <div className="flex-1 space-y-1">
+          <h3 className="text-sm font-medium">{title}</h3>
+          <p className="text-sm opacity-90">{description}</p>
+        </div>
+        <button
+          onClick={() => setIsOpen(false)}
+          className="ml-4 text-gray-500 hover:text-gray-700"
+        >
+          ✕
+        </button>
+      </div>
+    </div>
+  );
+};
+
+let toastId = 0;
+const toasts: { [key: number]: React.ReactNode } = {};
+
+const showToast = (props: Omit<ToastProps, 'id'>) => {
+  const id = toastId++;
+  toasts[id] = <Toast key={id} {...props} />;
+  setTimeout(() => {
+    delete toasts[id];
+  }, 5000);
+  return id;
+};
+
 export function WaitlistDialog() {
+  const [toasts, setToasts] = useState<React.ReactNode[]>([]);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -43,20 +86,20 @@ export function WaitlistDialog() {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000))
       
-      toast({
+      showToast({
         title: "Success!",
         description: "Thank you for joining the waitlist! We'll be in touch soon.",
-        variant: "default",
+        variant: "default"
       })
       
       setIsOpen(false)
       setFormData({ name: '', email: '', phone: '', interest: '' })
     } catch (error) {
       console.error('Error submitting form:', error)
-      toast({
+      showToast({
         title: "Error",
         description: "There was an error submitting the form. Please try again.",
-        variant: "destructive",
+        variant: "destructive"
       })
     } finally {
       setIsSubmitting(false)
