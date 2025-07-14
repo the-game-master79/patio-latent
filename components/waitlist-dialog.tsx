@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { toast } from "@/components/ui/use-toast"
 import { Button } from "./ui/button"
 import {
   Dialog,
@@ -41,12 +42,22 @@ export function WaitlistDialog() {
       console.log('Form submitted:', formData)
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000))
-      alert('Thank you for joining the waitlist! We will be in touch soon.')
+      
+      toast({
+        title: "Success!",
+        description: "Thank you for joining the waitlist! We'll be in touch soon.",
+        variant: "default",
+      })
+      
       setIsOpen(false)
       setFormData({ name: '', email: '', phone: '', interest: '' })
     } catch (error) {
       console.error('Error submitting form:', error)
-      alert('There was an error submitting the form. Please try again.')
+      toast({
+        title: "Error",
+        description: "There was an error submitting the form. Please try again.",
+        variant: "destructive",
+      })
     } finally {
       setIsSubmitting(false)
     }
