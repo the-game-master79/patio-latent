@@ -46,19 +46,8 @@ const Toast = ({ title, description, variant = 'default' }: ToastProps) => {
 };
 
 let toastId = 0;
-const toasts: { [key: number]: React.ReactNode } = {};
-
-const showToast = (props: Omit<ToastProps, 'id'>) => {
-  const id = toastId++;
-  toasts[id] = <Toast key={id} {...props} />;
-  setTimeout(() => {
-    delete toasts[id];
-  }, 5000);
-  return id;
-};
 
 export function WaitlistDialog() {
-  const [toasts, setToasts] = useState<React.ReactNode[]>([]);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -81,26 +70,10 @@ export function WaitlistDialog() {
     setIsSubmitting(true)
     
     try {
-      // Here you would typically send the form data to your backend
-      console.log('Form submitted:', formData)
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      
-      showToast({
-        title: "Success!",
-        description: "Thank you for joining the waitlist! We'll be in touch soon.",
-        variant: "default"
-      })
-      
       setIsOpen(false)
       setFormData({ name: '', email: '', phone: '', interest: '' })
     } catch (error) {
       console.error('Error submitting form:', error)
-      showToast({
-        title: "Error",
-        description: "There was an error submitting the form. Please try again.",
-        variant: "destructive"
-      })
     } finally {
       setIsSubmitting(false)
     }
