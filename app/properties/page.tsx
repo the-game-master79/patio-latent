@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import Image from "next/image"
 import { Container } from "@/components/ui/container"
 import { Navbar } from "@/components/navbar"
 import {
@@ -12,7 +13,7 @@ import {
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { getProperties } from "@/app/actions/properties"
-import { Bed, Bath, Ruler, MapPin, Home, DollarSign, Calendar } from "lucide-react"
+import { Bed, Bath, Ruler, MapPin, DollarSign, Calendar } from "lucide-react"
 import { SellPropertyForm } from "@/components/sell-property-form"
 
 export interface Property {
@@ -157,10 +158,13 @@ export default function PropertiesPage() {
               <div className="mt-4 space-y-4">
                 <div className="h-64 bg-gray-200 rounded-lg mb-4 overflow-hidden">
                   {selectedProperty.featured_image_url ? (
-                    <img 
+                    <Image 
                       src={selectedProperty.featured_image_url} 
                       alt={selectedProperty.title}
                       className="w-full h-full object-cover"
+                      width={400}
+                      height={256}
+                      priority
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center bg-gray-100">

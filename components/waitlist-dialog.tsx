@@ -106,7 +106,7 @@ export function WaitlistDialog() {
             />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="interest">I'm interested in</Label>
+            <Label htmlFor="interest">I&apos;m interested in</Label>
             <Select 
               name="interest"
               value={formData.interest}

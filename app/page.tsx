@@ -20,7 +20,6 @@ const fadeIn = {
 };
 
 export default function HomePage() {
-  const [scrolled, setScrolled] = useState(false);
   const targetRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
@@ -30,14 +29,6 @@ export default function HomePage() {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 1.05]);
   const y = useTransform(scrollYProgress, [0, 0.5], [0, 100]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   return (
     <div className="min-h-screen bg-white">
@@ -74,7 +65,7 @@ export default function HomePage() {
             </motion.div>
             
             <motion.h1 variants={fadeIn} className="text-4xl font-bold tracking-tight text-slate-900 sm:text-6xl lg:text-7xl bg-clip-text text-transparent bg-gradient-to-r from-slate-800 to-slate-600">
-              India's Premier Platform for <span className="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text">Distressed Real Estate</span>
+              India&apos;s Premier Platform for <span className="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text">Distressed Real Estate</span>
             </motion.h1>
             
             <motion.p variants={fadeIn} className="mt-6 text-xl leading-8 text-slate-600 max-w-3xl mx-auto">
@@ -426,7 +417,7 @@ export default function HomePage() {
               Ready to Start Investing in Distressed Properties?
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-lg text-blue-100">
-              Join our exclusive waitlist today and get early access to the best investment opportunities in India's distressed real estate market.
+              Join our exclusive waitlist today and get early access to the best investment opportunities in India&apos;s distressed real estate market.
             </p>
             <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Button className="bg-white text-blue-700 hover:bg-blue-50" size="lg">
