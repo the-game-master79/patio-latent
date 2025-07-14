@@ -12,7 +12,7 @@ import {
 import { Shield, TrendingUp, Home as HomeIcon, Search, Gavel, Handshake, FileText, Phone, MessageSquare, MapPin, Clock, Award, ChevronDown } from "lucide-react"
 import { WaitlistDialog } from "@/components/waitlist-dialog"
 import { motion, useScroll, useTransform } from "framer-motion"
-import { useEffect, useRef, useState } from "react"
+import { useRef } from "react"
 
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
